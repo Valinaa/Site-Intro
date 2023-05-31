@@ -84,15 +84,22 @@
                 <el-timeline>
                     <el-timeline-item
                         center
+                        type="info">
+                        <span>
+                            <el-button
+                                type="info"
+                                @click="goPage('main')">
+                                {{ t('view home') }}
+                            </el-button>
+                        </span>
+                    </el-timeline-item>
+                    <el-timeline-item
+                        center
                         type="danger">
                         <span>
                             <el-button
                                 type="danger"
-                                @click="
-                                    () => {
-                                        void router.push('/blog')
-                                    }
-                                ">
+                                @click="goPage('blog')">
                                 {{ t('view blog') }}
                             </el-button>
                         </span>
@@ -103,11 +110,7 @@
                         <span>
                             <el-button
                                 type="primary"
-                                @click="
-                                    () => {
-                                        void router.push('/muse')
-                                    }
-                                ">
+                                @click="goPage('muse')">
                                 {{ t('view muse') }}
                             </el-button>
                         </span>
@@ -118,11 +121,7 @@
                         <span>
                             <el-button
                                 type="success"
-                                @click="
-                                    () => {
-                                        void router.push('/life')
-                                    }
-                                ">
+                                @click="goPage('life')">
                                 {{ t('view life') }}
                             </el-button>
                         </span>
@@ -154,7 +153,9 @@
                         @click="clickHeart()">
                         <i class="card-icon">
                             <i-bx-heart :style="noClick()" />
-                            <i-bxs-heart :style="hasClicked()" />
+                            <i-bxs-heart
+                                :style="hasClicked()"
+                                style="color: red" />
                         </i>
                         <span>{{ t('like') }}</span>
                     </el-button>
@@ -242,7 +243,6 @@ interface SpanMethodProps {
     rowIndex: number
     columnIndex: number
 }
-const router = useRouter()
 const { t } = useI18n()
 
 const visible = ref(false)
@@ -315,7 +315,10 @@ const tableData = ref([
         grade: 3.0,
     },
 ])
-
+const goPage = (path: string) => {
+    const url = `https://${path}.valinaa-wei.tech`
+    window.location.href = url
+}
 const objectSpanMethod = ({
     row,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
